@@ -1,0 +1,21 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app
+
+    # The level 8 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '/Method App\\Http\\Middleware\\Authenticate::redirectTo\(\) should return string\|null but return/'
+        - '/Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$user_id/'
+        - '/Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$lang_id/'
+        - '/Parameter #1 \$wrappedType of static method GraphQL\\Type\\Definition\\Type::nonNull\(\) expects GraphQL\\Type\\Definition\\NullableType, GraphQL\\Type\\Definition\\Type given/'
+
+    excludes_analyse:
+        - ./*/*/FileToBeExcluded.php
+
+    checkMissingIterableValueType: false
