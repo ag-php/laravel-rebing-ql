@@ -7,7 +7,7 @@
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 declare(strict_types=1);
@@ -26,7 +26,7 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class PaginationWrapperType extends ObjectType
 {
@@ -66,7 +66,7 @@ class PaginationWrapperType extends ObjectType
                 'type'        => GraphQLType::listOf(GraphQL::type($typeName)),
                 'description' => 'List of items on the current page',
                 'resolve'     => function ($data): Collection {
-                    return $data['data']->getCollection();
+                    return $data->getCollection();
                 },
             ],
             'pagination' => [

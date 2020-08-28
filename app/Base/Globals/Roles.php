@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @category Model
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 namespace App\Base\Globals;
@@ -21,7 +21,7 @@ namespace App\Base\Globals;
  * @category Model
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class Roles
 {

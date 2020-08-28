@@ -12,8 +12,8 @@ use Rebing\GraphQL\Support\Query;
 class UserLoginQuery extends Query
 {
     protected $attributes = [
-        'name'        => 'UserLoginQuery',
-        'description' => 'A query to return a user',
+        'name'        => 'login',
+        'description' => 'A query to login a user, return a user + accessToken',
     ];
 
     public function type(): Type

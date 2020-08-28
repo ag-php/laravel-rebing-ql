@@ -7,7 +7,7 @@
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 declare(strict_types=1);
@@ -23,7 +23,7 @@ use GraphQL;
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class MessageWrapper
 {

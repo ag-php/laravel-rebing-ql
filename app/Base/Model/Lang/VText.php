@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @category Model
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 namespace App\Base\Model\Lang;
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @category Model
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class VText extends BaseModel
 {

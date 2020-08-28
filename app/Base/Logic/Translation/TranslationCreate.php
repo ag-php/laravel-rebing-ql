@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @category Logic
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 namespace App\Base\Logic\Translation;
@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\DB;
  * @category Logic
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class TranslationCreate
 {

@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 namespace App\Base\GraphQL\Type;
@@ -25,7 +25,7 @@ use Rebing\GraphQL\Support\Type as GraphQLType;
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class PaginationType extends GraphQLType
 {

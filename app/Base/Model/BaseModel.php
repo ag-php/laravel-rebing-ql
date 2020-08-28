@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @category Model
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 namespace App\Base\Model;
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @category Model
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class BaseModel extends Model
 {
@@ -42,8 +42,6 @@ class BaseModel extends Model
 
         return $columns;
     }
-
-    //end getPublicColumns()
 
     /**
      * Save the user to created or update the row in the DB.
@@ -67,6 +65,4 @@ class BaseModel extends Model
             );
         }
     }
-
-    //end boot()
-}//end class
+}

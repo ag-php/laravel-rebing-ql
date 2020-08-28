@@ -7,7 +7,7 @@
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 
 declare(strict_types=1);
@@ -26,7 +26,7 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
  * @category GraphQL
  * @author   Albert <me@albertcito.com>
  * @license  no LICENSE
- * @link     http://www.inspiracion.cl
+ * @link     https://albertcito.com
  */
 class WrapperListType extends ObjectType
 {

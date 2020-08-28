@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PEAR.Commenting.FileComment.Missing
-
 namespace App\Base\GraphQL\Type;
 
 use GraphQL\Type\Definition\Type;
@@ -16,32 +14,32 @@ class LangType extends GraphQLType
         'description' => 'A Lang type',
     ];
 
-    // phpcs:disable PEAR.Commenting.FunctionComment.Missing
     public function fields() : array
     {
         return [
-            'lang_id'    => [
+            'langID'    => [
                 'type'        => Type::nonNull(Type::string()),
                 'description' => 'The lang ID',
+                'alias' => 'lang_id',
             ],
             'name'      => [
                 'type'        => Type::nonNull(Type::string()),
                 'description' => 'The lang name (english, spanish...)',
             ],
-            'local_name' => [
+            'localName' => [
                 'type'        => Type::string(),
                 'description' => 'Local name example: Spanish = Español',
+                'alias' => 'local_name',
             ],
             'active'    => [
                 'type'        => Type::boolean(),
                 'description' => 'flag to indicate if lang is active',
             ],
-            'is_blocked' => [
+            'isBlocked' => [
                 'type'        => Type::boolean(),
                 'description' => 'flag to indicate if lang is blocked',
+                'alias' => 'is_blocked',
             ],
         ];
     }
-
-    //end fields()
-}//end class
+}

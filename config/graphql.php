@@ -98,11 +98,10 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'login' => App\Base\GraphQL\Publics\Query\UserLoginQuery::class,
+                App\Base\GraphQL\Publics\Query\UserLoginQuery::class,
+                App\Base\GraphQL\Publics\Query\LangsQuery::class,
             ],
-            'mutation' => [
-                // 'example_mutation'  => ExampleMutation::class,
-            ],
+            'mutation' => [],
             'middleware' => [],
             'method' => ['get', 'post'],
         ],
