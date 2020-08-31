@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Base\Logic\User;
+namespace App\Base\Logic\User\Login;
 
 use App\Base\Enums\UserStatus;
 use App\Base\Exceptions\MessageError;
@@ -10,7 +10,7 @@ use App\Base\Model\Security\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class LoginLogic
+class LoginUserLogic
 {
     private string $email;
     private string $password;
@@ -21,23 +21,21 @@ class LoginLogic
         $this->password = $password;
     }
 
-    public function login()
+    public function getUser(): User
     {
         if (Auth::check()) {
-            throw new MessageError(__('user.logged_already'));
+            throw new MessageError(trans('user.logged_already'));
         }
 
         $user = User::where(['email' => $this->email])->first();
 
         if (! $user || ! Hash::check($this->password, $user->password)) {
-            throw new MessageError(__('user.login_wrong'));
+            throw new MessageError(trans('user.login_wrong'));
         }
 
         if (! UserStatus::ACTIVE()->isEqual($user->user_status_id)) {
-            throw new MessageError(__('user.no_active'));
+            throw new MessageError(trans('user.no_active'));
         }
-
-        $user['accessToken'] = $user->createToken('Albertcito.com')->accessToken;
 
         return $user;
     }
