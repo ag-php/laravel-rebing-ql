@@ -6,12 +6,15 @@ namespace App\Base\Logic\Search\Pagination\Items;
 
 class PaginationItem
 {
-    public $name;
+    public string $name;
+    // @phpstan-ignore-next-line
     public $type;
-    public $description;
+    public string $description;
+    // @phpstan-ignore-next-line
     public $defaultValue;
-    public $rules;
+    public array $rules;
 
+    // @phpstan-ignore-next-line
     public function __construct(
         string $name,
         $type,

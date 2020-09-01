@@ -26,19 +26,21 @@ class UserStatusType extends GraphQLType
         $defaultLang = Langs::getDefault();
 
         return [
-            'user_status_id'  => [
+            'userStatusID'  => [
                 'type'        => Type::nonNull(Type::string()),
                 'description' => 'User Status primary key',
+                'alias' => 'user_status_id',
             ],
-            'status_id'      => [
+            'statusID'      => [
                 'type'        => Type::int(),
                 'description' => 'Status id: translation id',
+                'alias' => 'status_id',
             ],
             'status'        => [
                 'type'        => Type::nonNull(GraphQL::type('TextType')),
                 'description' => 'Status translation',
                 'args'        => [
-                    'lang_id' => [
+                    'langID' => [
                         'type'         => Type::string(),
                         'description'  => 'Language',
                         'defaultValue' => $defaultLang,
@@ -47,12 +49,13 @@ class UserStatusType extends GraphQLType
                 'resolve'     => function ($root, $args) {
                     $translation = Translation::find($root->status_id);
 
-                    return $translation->text($args['lang_id']);
+                    return $translation->text($args['langID']);
                 },
             ],
-            'description_id' => [
+            'descriptionID' => [
                 'type'        => Type::int(),
                 'description' => 'Staus description ID: translation id',
+                'alias' => 'description_id',
             ],
             'description'   => [
                 'type'        => GraphQL::type('TextType'),
@@ -74,7 +77,7 @@ class UserStatusType extends GraphQLType
                     return $translation->text($args['lang_id']);
                 },
             ],
-            'created_at'     => [
+            'createdAt' => [
                 'type'        => Type::nonNull(Type::string()),
                 'description' => 'Date to request the file',
                 'alias'       => 'created_at',
@@ -92,5 +95,4 @@ class UserStatusType extends GraphQLType
         ];
     }
 
-    //end fields()
-}//end class
+}

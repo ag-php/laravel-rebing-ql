@@ -1,10 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
-// phpcs:disable PEAR.Commenting.FileComment.Missing
-
-namespace App\Base\Logic\Translation;
+namespace App\Base\Logic\Lang\Translation;
 
 use App\Base\Globals\Langs;
 use App\Base\Model\Lang\Lang;
@@ -14,7 +11,7 @@ use GraphQL\Type\Definition\Type;
 
 class TextField
 {
-    private $type;
+    private string $type;
 
     public function __construct(string $type = 'TextType')
     {

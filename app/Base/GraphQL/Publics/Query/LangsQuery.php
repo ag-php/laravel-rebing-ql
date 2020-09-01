@@ -11,6 +11,7 @@ use App\Base\Model\Lang\Lang;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class LangsQuery extends Query
 {
@@ -18,7 +19,7 @@ class LangsQuery extends Query
         'name'        => 'langs',
         'description' => 'A query to get the Langs',
     ];
-    protected $columns;
+    protected array $columns;
 
     public function __construct()
     {
@@ -48,7 +49,7 @@ class LangsQuery extends Query
         return $args;
     }
 
-    public function resolve($root, array $args)
+    public function resolve(?Object $root, array $args): LengthAwarePaginator
     {
         $query = Lang::select($this->columns);
         $query->orderBy($args['orderBy'], $args['order']);

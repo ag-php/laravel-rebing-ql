@@ -8,7 +8,7 @@ use GraphQL\Type\Definition\Type;
 
 class PaginationSearch extends PaginationItem
 {
-    public function __construct($defaultValue = '', $description = 'Search parameter')
+    public function __construct(string $defaultValue = '', string  $description = 'Search parameter')
     {
         parent::__construct(
             'search',

@@ -20,40 +20,45 @@ class TextType extends GraphQLType
     public function fields() : array
     {
         return [
-            'translation_id'  => [
+            'translationID'  => [
                 'type'        => Type::int(),
                 'description' => 'The Group ID',
+                'alias' => 'translation_id',
             ],
             'code'           => [
                 'type'        => Type::string(),
                 'description' => 'translation_code',
             ],
-            'lang_id'         => [
+            'langID'         => [
                 'type'        => Type::nonNull(Type::string()),
                 'description' => 'The Lang ID',
+                'alias' => 'lang_id',
             ],
-            'text_id'         => [
+            'textID'         => [
                 'type'        => Type::int(),
                 'description' => 'The Word ID',
+                'alias' => 'text_id',
             ],
             'text'           => [
                 'type'        => Type::string(),
                 'description' => 'Text name',
             ],
-            'original_text_id' => [
+            'originalTextID' => [
                 'type'        => Type::int(),
                 'description' => 'The original text ID',
+                'alias' => 'original_text_id',
             ],
-            'original_lang_id' => [
+            'originalLangID' => [
                 'type'        => Type::string(),
                 'description' => 'The original lang ID',
+                'alias' => 'original_lang_id',
             ],
-            'is_available' => [
+            'isAvailable' => [
                 'type'        => Type::boolean(),
                 'description' => 'TRUE or FALSE, to know if the text is available in its language',
+                'alias' => 'is_available',
             ],
         ];
     }
 
-    //end fields()
-}//end class
+}

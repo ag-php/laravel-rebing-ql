@@ -8,7 +8,7 @@ use GraphQL\Type\Definition\Type;
 
 class PaginationLimit extends PaginationItem
 {
-    public function __construct($defaultValue = 24)
+    public function __construct(int $defaultValue = 24)
     {
         parent::__construct(
             'limit',

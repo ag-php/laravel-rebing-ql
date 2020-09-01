@@ -1,40 +1,16 @@
 <?php
 
-/**
- * To find a string bettwen to strings
- * php version 7.2.10.
- *
- * @category GraphQL
- * @author   Albert <me@albertcito.com>
- * @license  no LICENSE
- * @link     https://albertcito.com
- */
-
 declare(strict_types=1);
 
 namespace App\Base\GraphQL\Classes;
 
 use GraphQL;
+use GraphQL\Type\Definition\Type;
 
-/**
- * To find a string bettwen to strings
- * php version 7.2.10.
- *
- * @category GraphQL
- * @author   Albert <me@albertcito.com>
- * @license  no LICENSE
- * @link     https://albertcito.com
- */
 class MessageWrapper
 {
-    /**
-     * Undocumented function.
-     *
-     * @param string $typeName type graphql
-     *
-     * @return void
-     */
-    public static function type(string $typeName, bool $list = false)
+
+    public static function type(string $typeName, bool $list = false): Type
     {
         if ($list) {
             return GraphQL::wrapType(
@@ -51,5 +27,4 @@ class MessageWrapper
         );
     }
 
-    //end type()
-}//end class
+}

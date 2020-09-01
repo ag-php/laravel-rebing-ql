@@ -8,8 +8,10 @@ use GraphQL\Type\Definition\Type;
 
 class PaginationLang extends PaginationItem
 {
-    public function __construct($defaultValue = 'EN', $description = 'Lang for the title ID.')
-    {
+    public function __construct(
+        string $defaultValue = 'EN',
+        string $description = 'Lang for the title ID.'
+    ) {
         parent::__construct(
             'lang_id',
             Type::string(),

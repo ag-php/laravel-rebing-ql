@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Base\Logic\Search\Classes;
 
 use App\Base\Logic\Search\Interfaces\SearchByTranslation;
+use Illuminate\Database\Eloquent\Builder;
 
 class TranslationSearch implements SearchByTranslation
 {
@@ -17,7 +18,7 @@ class TranslationSearch implements SearchByTranslation
         $this->lang_id = $lang_id;
     }
 
-    public function query($query)
+    public function query(Builder $query): void
     {
         $column = $this->column;
         $lang_id = $this->lang_id;

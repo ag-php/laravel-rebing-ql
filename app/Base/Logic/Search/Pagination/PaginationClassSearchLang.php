@@ -17,7 +17,7 @@ class PaginationClassSearchLang extends PaginationClassSearch
         $this->lang = $lang;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $args = parent::toArray();
         $args['lang_id'] = $this->lang->toArray();

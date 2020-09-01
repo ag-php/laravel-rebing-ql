@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PEAR.Commenting.FileComment.Missing
-
 namespace App\Base\GraphQL\Type;
 
 use App\Base\Logic\DateFormat\DateFormat;
@@ -19,21 +17,23 @@ class UserStatusReasonType extends GraphQLType
         'description' => 'A type for User Status Reason',
     ];
 
-    // phpcs:disable PEAR.Commenting.FunctionComment.Missing
     public function fields() : array
     {
         return [
-            'user_status_reason_id' => [
+            'userStatusReasonID' => [
                 'type'        => Type::nonNull(Type::int()),
                 'description' => 'User Status Reason primary key',
+                'alias' => 'user_status_reason_id',
             ],
-            'user_id' => [
+            'userID' => [
                 'type'        => Type::nonNull(Type::int()),
                 'description' => 'User primary key',
+                'alias' => 'user_id',
             ],
-            'user_status_id'       => [
+            'userStatusID'       => [
                 'type'        => Type::string(),
                 'description' => 'User status',
+                'alias' => 'user_status_id',
             ],
             'reason' => [
                 'type'        => Type::string(),
@@ -46,12 +46,12 @@ class UserStatusReasonType extends GraphQLType
                     return UserStatus::find($root->user_status_id);
                 },
             ],
-            'created_at'          => [
+            'createdAt'          => [
                 'type'        => Type::nonNull(Type::string()),
                 'description' => 'Date to request the file',
+                'alias' => 'created_at',
                 'resolve'     => function ($root) {
                     $dateFormat = new DateFormat($root->created_at);
-
                     return $dateFormat->getFullTime();
                 },
             ],

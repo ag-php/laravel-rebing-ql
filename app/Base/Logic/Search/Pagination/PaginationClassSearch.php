@@ -17,7 +17,7 @@ class PaginationClassSearch extends PaginationClass
         $this->search = new PaginationSearch();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $args = parent::toArray();
         $args['search'] = $this->search->toArray();

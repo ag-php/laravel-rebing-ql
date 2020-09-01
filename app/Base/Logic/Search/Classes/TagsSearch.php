@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Base\Logic\Search\Classes;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class TagsSearch
 {
-    private $tags;
+    private array $tags;
 
     public function __construct(array $tags)
     {
         $this->tags = $tags;
     }
 
-    public function query($query, $activityTable, $columnName)
+    public function query(Builder $query, string $activityTable, string $columnName): void
     {
         $tags = $this->tags;
         $query->whereIn(
