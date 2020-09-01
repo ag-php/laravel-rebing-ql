@@ -67,5 +67,4 @@ class TokenType extends GraphQLType
             ],
         ];
     }
-
 }

@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\GraphQL\InputType;
 
-use Rebing\GraphQL\Support\InputType;
-use GraphQL\Type\Definition\Type;
 use App\Base\Rules\NoHTMLTags;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\InputType;
 
 class TextInput extends InputType
 {
     protected $attributes = [
         'name' => 'TextInput',
-        'description' => 'A text input'
+        'description' => 'A text input',
     ];
 
     public function fields(): array
@@ -35,5 +37,4 @@ class TextInput extends InputType
             ],
         ];
     }
-
 }

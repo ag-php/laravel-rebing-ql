@@ -60,5 +60,4 @@ class TextType extends GraphQLType
             ],
         ];
     }
-
 }

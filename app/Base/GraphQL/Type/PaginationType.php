@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Base\GraphQL\Type;
 
-use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
@@ -76,5 +75,4 @@ class PaginationType extends GraphQLType
             ],
         ];
     }
-
 }

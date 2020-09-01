@@ -9,8 +9,8 @@ class AdminQueries
     public static function queries(): array
     {
         return [
-          \App\Base\GraphQL\Admin\Query\Translation\TranslationsQuery::class,
-          \App\Base\GraphQL\Admin\Query\Translation\TranslationQuery::class,
+            \App\Base\GraphQL\Admin\Query\Translation\TranslationsQuery::class,
+            \App\Base\GraphQL\Admin\Query\Translation\TranslationQuery::class,
         ];
     }
 }

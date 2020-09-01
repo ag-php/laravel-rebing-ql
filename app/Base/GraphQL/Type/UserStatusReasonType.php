@@ -52,6 +52,7 @@ class UserStatusReasonType extends GraphQLType
                 'alias' => 'created_at',
                 'resolve'     => function ($root) {
                     $dateFormat = new DateFormat($root->created_at);
+
                     return $dateFormat->getFullTime();
                 },
             ],

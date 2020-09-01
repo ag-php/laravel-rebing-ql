@@ -1,24 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\GraphQL\Admin\Mutation\Translation;
 
-use GraphQL;
-use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Mutation;
-
-use App\Base\Model\Lang\Translation;
-use App\Base\Rules\Blocked;
-use Illuminate\Support\Collection;
+use App\Base\Enums\SimpleMessage as SimpleMessageEnum;
 use App\Base\GraphQL\Classes\MessageWrapper;
 use App\Base\GraphQL\Classes\SimpleMessage;
-use App\Base\Enums\SimpleMessage as SimpleMessageEnum;
+use App\Base\Model\Lang\Translation;
+use App\Base\Rules\Blocked;
+use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Collection;
+use Rebing\GraphQL\Support\Mutation;
 
 class TranslationDeleteMutation extends Mutation
 {
-
     protected $attributes = [
         'name' => 'translationDelete',
-        'description' => 'Translation delete mutation'
+        'description' => 'Translation delete mutation',
     ];
 
     public function type(): Type
@@ -29,7 +28,7 @@ class TranslationDeleteMutation extends Mutation
     public function args(): array
     {
         return [
-            'symbol_id' => [
+            'translationID' => [
                 'type' => Type::int(),
                 'rules' => [
                     'required',
@@ -37,26 +36,25 @@ class TranslationDeleteMutation extends Mutation
                     'exists:pgsql.lang.translation,translation_id',
                     new Blocked(
                         Translation::class,
-                        'symbol_id'
+                        'translation_id'
                     ),
-                ]
+                ],
             ],
         ];
-
     }
 
     public function resolve(?Object $root, array $args): array
     {
-        $translation = Translation::find($args['translation_id']);
+        $translation = Translation::find($args['translationID']);
         // phpstan think that $translation may be null
         // because it can see the validation in args
         // @phpstan-ignore-next-line
         $translation->delete();
-        $msgTag = trans('graphql.deleted_success', [ 'item' => $args['translation_id'] ]);
+        $msgTag = trans('graphql.deleted_success', ['item' => $args['translationID']]);
+
         return [
             'data' => $translation,
-            'messages' => new Collection([ new SimpleMessage($msgTag, SimpleMessageEnum::SUCCESS()) ]),
+            'messages' => new Collection([new SimpleMessage($msgTag, SimpleMessageEnum::SUCCESS())]),
         ];
     }
-
 }

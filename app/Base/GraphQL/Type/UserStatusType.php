@@ -94,5 +94,4 @@ class UserStatusType extends GraphQLType
             ],
         ];
     }
-
 }

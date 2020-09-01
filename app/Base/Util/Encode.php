@@ -15,7 +15,7 @@ class Encode
      */
     public static function jsonEncode(array $array) : string
     {
-        $json = (string)json_encode($array);
+        $json = (string) json_encode($array);
 
         return self::base64UrlEncode($json);
     }

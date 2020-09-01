@@ -1,22 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\GraphQL\Admin\Query\Translation;
 
-use GraphQL;
+use App\Base\Exceptions\MessageError;
+use App\Base\GraphQL\Classes\MessageWrapper;
+use App\Base\Model\Lang\Translation;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-use App\Base\Model\Lang\Translation;
-use App\Base\Exceptions\MessageError;
-use Illuminate\Support\Collection;
-use App\Base\GraphQL\Classes\{
-    SimpleMessage,
-    MessageWrapper
-};
-
 class TranslationQuery extends Query
 {
-
     protected $attributes = [
         'name'        => 'translationQuery',
         'description' => 'A query to get the Translation Type',
@@ -25,35 +20,32 @@ class TranslationQuery extends Query
     public function type(): Type
     {
         return MessageWrapper::type('TranslationType');
-
     }
 
     public function args(): array
     {
         return [
-            'translation_id' => [
+            'translationID' => [
                 'type'  => Type::int(),
                 'rules' => ['required'],
             ],
         ];
-
     }
 
     public function resolve(?Object $root, array $args): array
     {
-        $translation = Translation::find($args['translation_id']);
-        if (!$translation) {
-            throw new MessageError("Not found", 404);
+        $translation = Translation::find($args['translationID']);
+        if (! $translation) {
+            throw new MessageError('Not found', 404);
         }
         $message = __(
             'graphql.created_success',
-            [ 'item' => $args['translation_id'] ]
+            ['item' => $args['translationID']]
         );
+
         return [
             'data' => $translation,
             'messages' => [],
         ];
-
     }
-
 }

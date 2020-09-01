@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\Logic\Lang\Translation;
 
-use App\Base\Model\Lang\{
-    Translation,
-    Text
-};
 use App\Base\Classes\Save\IData;
-use App\Base\GraphQL\Classes\SimpleMessage;
 use App\Base\Enums\SimpleMessage as SimpleMessageEnum;
-use App\Base\Logic\Lang\Translation\OptionalTranslationCode;
+use App\Base\GraphQL\Classes\SimpleMessage;
+use App\Base\Model\Lang\Text;
+use App\Base\Model\Lang\Translation;
 
 class TranslationSave implements IData
 {
@@ -23,15 +22,15 @@ class TranslationSave implements IData
         Translation $translation,
         array $texts,
         array $optionals
-    )
-    {
+    ) {
         $this->translation = $translation;
         $this->event = $this->translation->exists ? 'update' : 'create';
         $this->texts = $texts;
         $this->optionals = $optionals;
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
         return $this->messages;
     }
 
@@ -53,7 +52,7 @@ class TranslationSave implements IData
         }
 
         // Update code optional argument
-        if (!empty($this->optionals['code'])) {
+        if (! empty($this->optionals['code'])) {
             $optionalCode = new OptionalTranslationCode(
                 $this->optionals['code'],
                 $this->translation
@@ -61,7 +60,7 @@ class TranslationSave implements IData
             $this->translation->code = $optionalCode->getCode();
             if ($this->translation->code !== $this->optionals['code']) {
                 $this->messages[] = new SimpleMessage(
-                    'The code was modified to: "'. $this->translation->code .'"',
+                    'The code was modified to: "'.$this->translation->code.'"',
                     SimpleMessageEnum::INFO(),
                 );
             }
@@ -70,11 +69,7 @@ class TranslationSave implements IData
         $this->translation->save();
 
         // Save texts
-        if ($this->event === 'update') {
-            $this->saveUpdateTexts();
-        } else {
-            $this->saveNewTexts();
-        }
+        $this->saveTexts();
 
         // Success message
         $msg = ($this->event === 'update')
@@ -82,12 +77,12 @@ class TranslationSave implements IData
             : 'graphql.created_success';
 
         $this->messages[] = new SimpleMessage(
-            trans($msg, [ 'item' => $this->id()]),
+            trans($msg, ['item' => $this->id()]),
             SimpleMessageEnum::SUCCESS(),
         );
     }
 
-    private function saveNewTexts(): void
+    private function saveTexts(): void
     {
         foreach ($this->texts as $newText) {
             $text = Text::firstOrNew([
@@ -98,17 +93,4 @@ class TranslationSave implements IData
             $text->save();
         }
     }
-
-    private function saveUpdateTexts(): void
-    {
-        foreach ($this->texts as $newText) {
-            $text = Text::updateOrCreate([
-                'lang_id' => $newText['langID'],
-                'translation_id' => $this->id(),
-            ]);
-            $text->text = $newText['text'];
-            $text->save();
-        }
-    }
-
 }

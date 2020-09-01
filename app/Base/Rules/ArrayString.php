@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
 class ArrayString implements Rule
 {
-
     /**
-     * Determine if the array has duplicates or empty values
+     * Determine if the array has duplicates or empty values.
      *
      * @param string $attribute sd
      * @param string $value     and string array to evaluate
@@ -20,8 +21,8 @@ class ArrayString implements Rule
         $result = array_map('trim', $value);
         $result = array_filter($result);
         $result = array_unique($result);
-        return count($result) === count($value);
 
+        return count($result) === count($value);
     }
 
     /**
@@ -32,7 +33,5 @@ class ArrayString implements Rule
     public function message()
     {
         return trans('validation.array_string');
-
     }
-
 }
