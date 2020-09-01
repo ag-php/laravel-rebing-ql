@@ -6,14 +6,14 @@ namespace App\Base\Classes;
 
 class ArrayIDs
 {
-    private $array;
+    private array $array;
 
     public function __construct(array $array)
     {
         $this->array = $array;
     }
 
-    public function ids(string $key)
+    public function ids(string $key): array
     {
         return array_filter(
             array_map(

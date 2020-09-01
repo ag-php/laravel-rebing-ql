@@ -6,9 +6,9 @@ namespace App\Base\Logic\OptionalParams;
 
 class OptionalParams
 {
-    protected $optionals;
+    protected array $optionals;
 
-    protected $optionalKey;
+    protected string $optionalKey;
 
     public function __construct(array $optionals, string $optionalKey)
     {

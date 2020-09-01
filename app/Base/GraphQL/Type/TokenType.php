@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PEAR.Commenting.FileComment.Missing
-
 namespace App\Base\GraphQL\Type;
 
 use App\Base\Logic\DateFormat\DateFormat;
@@ -17,21 +15,22 @@ class TokenType extends GraphQLType
         'description' => 'A type of Token table',
     ];
 
-    // phpcs:disable PEAR.Commenting.FunctionComment.Missing
     public function fields() : array
     {
         return [
-            'token_id'  => [
+            'tokenID'  => [
                 'type'        => Type::nonNull(Type::int()),
                 'description' => 'Token identification, primary key',
+                'alias' => 'token_id',
             ],
             'type'     => [
                 'type'        => Type::string(),
                 'description' => 'User From identification',
             ],
-            'used_at'   => [
+            'usedAt'   => [
                 'type'        => Type::string(),
                 'description' => 'From who the email was sent',
+                'alias' => 'used_at',
                 'resolve'     => function ($root) {
                     if (! $root->used_at) {
                         return;
@@ -42,18 +41,20 @@ class TokenType extends GraphQLType
                     return $dateFormat->getFullTime();
                 },
             ],
-            'expire_at' => [
+            'expireAt' => [
                 'type'        => Type::string(),
                 'description' => 'User name From who the email was sent',
+                'alias' => 'expire_at',
                 'resolve'     => function ($root) {
                     $dateFormat = new DateFormat($root->expire_at);
 
                     return $dateFormat->getFullTime();
                 },
             ],
-            'created_at'   => [
+            'createdAt'   => [
                 'type'        => Type::string(),
                 'description' => 'Sent date time',
+                'alias' => 'created_at',
                 'resolve'     => function ($root) {
                     if (! $root->created_at) {
                         return;
@@ -67,5 +68,4 @@ class TokenType extends GraphQLType
         ];
     }
 
-    //end fields()
-}//end class
+}

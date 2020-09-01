@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 
 class GraphQLExceptions
 {
-    public static function formatError(Error $error)
+    public static function formatError(Error $error): array
     {
         $previous = $error->getPrevious();
         if (! $previous) {

@@ -18,7 +18,7 @@ class PaginationClassSearchLangTags extends PaginationClassSearchLang
         $this->tags = new PaginationTags();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $args = parent::toArray();
         $args['tags'] = $this->tags->toArray();

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Base\Classes\Save;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface IData
 {
     /**
@@ -13,9 +15,9 @@ interface IData
      */
     public function messages(): array;
 
-    public function data();
+    public function data(): Model;
 
-    public function save();
+    public function save(): void;
 
     public function id(): int;
 }

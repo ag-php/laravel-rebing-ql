@@ -7,6 +7,7 @@ namespace App\Base\GraphQL\Publics\Query;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
+use App\Base\Model\Security\User;
 use App\Base\Logic\User\Login\{
     LoginUserLogic,
     LoginApiLogic
@@ -46,7 +47,7 @@ class UserLoginQuery extends Query
         ];
     }
 
-    public function resolve($root, $args)
+    public function resolve(?Object $root, array $args): User
     {
         $loginApiLogic = new LoginApiLogic(
             new LoginUserLogic(

@@ -7,13 +7,18 @@ parameters:
         - app
 
     # The level 8 is the highest level
-    level: 5
+    level: 8
 
     ignoreErrors:
-        - '/Method App\\Http\\Middleware\\Authenticate::redirectTo\(\) should return string\|null but return/'
+        # User has more columns than the default ones
         - '/Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$user_id/'
         - '/Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$lang_id/'
+        - '/Cannot access property \$lang_id on Illuminate\\Contracts\\Auth\\Authenticatable\|null/'
+        # GraphQL base errors
         - '/Parameter #1 \$wrappedType of static method GraphQL\\Type\\Definition\\Type::nonNull\(\) expects GraphQL\\Type\\Definition\\NullableType, GraphQL\\Type\\Definition\\Type given/'
+        - '/Property [a-zA-Z0-9\\_]+::\$attributes has no typehint specified./'
+        # Others
+        - '/Method App\\Http\\Middleware\\Authenticate::redirectTo\(\) should return string\|null but return/'
 
     excludes_analyse:
         - ./*/*/FileToBeExcluded.php

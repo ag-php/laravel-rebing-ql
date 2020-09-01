@@ -55,7 +55,7 @@ class BlockedParam
     {
         // If the form is blocked. Only a super admin can modify it.
         if ($this->currentValue && ! $this->hasRights()) {
-            throw with(new MessageError(__('graphql.blocked_no_right')));
+            throw new MessageError(trans('graphql.blocked_no_right'));
         }
 
         return $this->getValue();

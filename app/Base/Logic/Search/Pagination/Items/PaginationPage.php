@@ -8,7 +8,7 @@ use GraphQL\Type\Definition\Type;
 
 class PaginationPage extends PaginationItem
 {
-    public function __construct($defaultValue = 1)
+    public function __construct(int $defaultValue = 1)
     {
         parent::__construct(
             'page',

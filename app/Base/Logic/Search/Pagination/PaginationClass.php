@@ -24,7 +24,7 @@ class PaginationClass
         $this->order = new PaginationOrder();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'page' => $this->page->toArray(),

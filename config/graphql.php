@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Base\GraphQL\Config\Types;
+use App\Base\GraphQL\Config\{
+    Types,
+    PublicQueries,
+    AdminMutations,
+    AdminQueries,
+};
 
 return [
 
@@ -97,13 +102,16 @@ return [
     //
     'schemas' => [
         'default' => [
-            'query' => [
-                App\Base\GraphQL\Publics\Query\UserLoginQuery::class,
-                App\Base\GraphQL\Publics\Query\LangsQuery::class,
-            ],
+            'query' => PublicQueries::queries(),
             'mutation' => [],
-            'middleware' => [],
-            'method' => ['get', 'post'],
+            'middleware' => ['api'],
+            'method' => ['post'],
+        ],
+        'admin' => [
+            'query' => AdminQueries::queries(),
+            'mutation' => AdminMutations::mutations(),
+            'middleware' => ['auth:api'],
+            'method' => ['post'],
         ],
     ],
 

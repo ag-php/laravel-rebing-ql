@@ -7,13 +7,13 @@ namespace App\Base\Classes;
 class SaveOneToMany
 {
     //Items to be saved
-    private $items;
+    private array $items;
     //Model to save it
-    private $model;
+    private string $model;
     //The FK column name from the parent table
-    private $fkColumnName;
+    private string $fkColumnName;
     //The PK column name from the current table and model
-    private $pkColumnName;
+    private string $pkColumnName;
 
     public function __construct(
         array $items,
@@ -27,7 +27,7 @@ class SaveOneToMany
         $this->pkColumnName = $pkColumnName;
     }
 
-    public function save(int $id)
+    public function save(int $id): void
     {
         $arrayIDs = new ArrayIDs($this->items);
         // Delete options that are not in the new symbol array
