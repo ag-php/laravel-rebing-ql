@@ -11,6 +11,9 @@ class AdminQueries
         return [
             \App\Base\GraphQL\Admin\Query\Translation\TranslationsQuery::class,
             \App\Base\GraphQL\Admin\Query\Translation\TranslationQuery::class,
+
+            \App\Base\GraphQL\Admin\Query\Tag\TagsQuery::class,
+            \App\Base\GraphQL\Admin\Query\Tag\TagQuery::class,
         ];
     }
 }

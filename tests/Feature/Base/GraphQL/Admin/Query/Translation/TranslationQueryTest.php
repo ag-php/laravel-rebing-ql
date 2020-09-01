@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Base\GraphQL\Admin\Query;
+namespace Tests\Feature\Base\GraphQL\Admin\Query\Translation;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;

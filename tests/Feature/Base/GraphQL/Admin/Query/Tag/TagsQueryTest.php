@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Base\GraphQL\Admin\Query;
+namespace Tests\Feature\Base\GraphQL\Admin\Query\Tag;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
-class TranslationsQueryTest extends TestCase
+class TagsQueryTest extends TestCase
 {
     use WithoutMiddleware;
 
     public function test()
     {
         $query = '{
-            translationsQuery {
+            tags {
               data {
-                translationID
-                code
+                tagID
                 text {
                   text
                 }
@@ -30,11 +29,10 @@ class TranslationsQueryTest extends TestCase
 
         $expected = [
             'data' => [
-                'translationsQuery' => [
+                'tags' => [
                     'data' => [
                         '*' => [
-                            'translationID',
-                            'code',
+                            'tagID',
                             'text' => [
                                 'text',
                             ],

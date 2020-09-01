@@ -2,22 +2,37 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Base\GraphQL\Admin\Query;
+namespace Tests\Feature\Base\GraphQL\Admin\Mutation\Tag;
 
+use App\Base\Logic\Generic\Tag\TagSave;
+use App\Base\Logic\Lang\Translation\TranslationSave;
+use App\Base\Model\Generic\Tag;
+use App\Base\Model\Lang\Translation;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
-class TranslationCreateTest extends TestCase
+class TagUpdateTest extends TestCase
 {
     use WithoutMiddleware;
 
     public function test()
     {
-        $query = 'mutation translationCreate($code:String, $texts:[TextInput]){
-            translationCreate(texts:$texts, code:$code) {
+        $translation = new TranslationSave(
+            new Translation,
+            [[
+                'text' => 'Test to updated tag',
+                'langID' => 'EN',
+            ]],
+            ['code' => uniqid()]
+        );
+        $translation->save();
+
+        $tag = new TagSave(new Tag, $translation->id(), []);
+        $tag->save();
+
+        $query = 'mutation tagUpdate($tagID: Int, $translationID:Int){
+            tagUpdate(tagID: $tagID, translationID:$translationID) {
               data {
-                translationID
-                code
                 text {
                   textID
                   text
@@ -33,10 +48,8 @@ class TranslationCreateTest extends TestCase
 
         $expected = [
             'data' => [
-                'translationCreate' => [
+                'tagUpdate' => [
                     'data' => [
-                        'translationID',
-                        'code',
                         'text' => [
                             'textID',
                             'text',
@@ -54,17 +67,8 @@ class TranslationCreateTest extends TestCase
         ];
 
         $variables = [
-            'code' => uniqid(),
-            'texts' => [
-                [
-                    'text' => 'uno',
-                    'langID' => 'ES',
-                ],
-                [
-                    'text' => 'one',
-                    'langID' => 'EN',
-                ],
-            ],
+            'translationID' => $translation->id(),
+            'tagID' => $tag->id(),
         ];
 
         $this->assertJsonStructureLogged(

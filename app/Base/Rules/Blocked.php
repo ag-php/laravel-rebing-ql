@@ -9,10 +9,10 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Blocked implements Rule
 {
-    private $model;
-    private $id_key;
+    private string $model;
+    private string $id_key;
 
-    public function __construct($model, string $id_key)
+    public function __construct(string $model, string $id_key)
     {
         $this->model = $model;
         $this->id_key = $id_key;

@@ -18,6 +18,7 @@ class Types
             \App\Base\GraphQL\Type\UserStatusType::class,
             \App\Base\GraphQL\Type\UserStatusReasonType::class,
             \App\Base\GraphQL\Type\UserType::class,
+            \App\Base\GraphQL\Type\TagType::class,
 
             //Base Input Type
             'TextInput' => \App\Base\GraphQL\InputType\TextInput::class,

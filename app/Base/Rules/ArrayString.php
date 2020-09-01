@@ -11,8 +11,8 @@ class ArrayString implements Rule
     /**
      * Determine if the array has duplicates or empty values.
      *
-     * @param string $attribute sd
-     * @param string $value     and string array to evaluate
+     * @param string $attribute
+     * @param mixed $value array to evaluate
      *
      * @return bool
      */

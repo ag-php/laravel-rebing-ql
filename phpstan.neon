@@ -14,6 +14,7 @@ parameters:
         - '/Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$user_id/'
         - '/Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$lang_id/'
         - '/Cannot access property \$lang_id on Illuminate\\Contracts\\Auth\\Authenticatable\|null/'
+        - '/Cannot access property \$user_id on Illuminate\\Contracts\\Auth\\Authenticatable\|null/'
         # GraphQL base errors
         - '/Parameter #1 \$wrappedType of static method GraphQL\\Type\\Definition\\Type::nonNull\(\) expects GraphQL\\Type\\Definition\\NullableType, GraphQL\\Type\\Definition\\Type given/'
         - '/Property [a-zA-Z0-9\\_]+::\$attributes has no typehint specified./'
