@@ -13,7 +13,7 @@ use Rebing\GraphQL\Support\Query;
 class TranslationQuery extends Query
 {
     protected $attributes = [
-        'name'        => 'translationQuery',
+        'name'        => 'translation',
         'description' => 'A query to get the Translation Type',
     ];
 

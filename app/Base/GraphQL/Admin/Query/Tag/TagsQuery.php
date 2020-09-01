@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace App\Base\GraphQL\Admin\Query\Tag;
 
 use App\Base\Globals\Langs;
-use App\Base\Logic\Search\Classes\TextSearch;
-use App\Base\Logic\Search\Classes\TranslationSearch;
-use App\Base\Logic\Search\Pagination\Items\PaginationLang;
-use App\Base\Logic\Search\Pagination\Items\PaginationOrderBy;
+use App\Base\Logic\Search\Classes\{
+    TextSearch,
+    TranslationSearch
+};
+use App\Base\Logic\Search\Pagination\Items\{
+    PaginationLang,
+    PaginationOrderBy
+};
 use App\Base\Logic\Search\Pagination\PaginationClassSearchLang;
 use App\Base\Model\Generic\Tag;
 use App\Base\Model\Lang\VText;
+use App\Base\Classes\ModelColumns;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -29,11 +34,12 @@ class TagsQuery extends Query
 
     public function __construct()
     {
-        $tag = new Tag();
-        $this->columns = $tag->getPublicColumns();
+        $tagModelColumns = new ModelColumns(new Tag());
+        $this->columns = $tagModelColumns->public();
+        $vTextModelColumns = new ModelColumns(new VText());
         $this->orderByColumns = array_merge(
             $this->columns,
-            (new VText())->getPublicColumns()
+            $vTextModelColumns->public()
         );
     }
 

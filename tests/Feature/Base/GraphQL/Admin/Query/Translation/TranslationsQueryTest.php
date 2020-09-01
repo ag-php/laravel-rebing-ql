@@ -14,7 +14,7 @@ class TranslationsQueryTest extends TestCase
     public function test()
     {
         $query = '{
-            translationsQuery {
+            translations {
               data {
                 translationID
                 code
@@ -30,7 +30,7 @@ class TranslationsQueryTest extends TestCase
 
         $expected = [
             'data' => [
-                'translationsQuery' => [
+                'translations' => [
                     'data' => [
                         '*' => [
                             'translationID',

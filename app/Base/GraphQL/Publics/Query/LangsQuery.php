@@ -8,6 +8,7 @@ use App\Base\Logic\Search\Classes\TextSearch;
 use App\Base\Logic\Search\Pagination\Items\PaginationOrderBy;
 use App\Base\Logic\Search\Pagination\PaginationClassSearch;
 use App\Base\Model\Lang\Lang;
+use App\Base\Classes\ModelColumns;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -23,7 +24,8 @@ class LangsQuery extends Query
 
     public function __construct()
     {
-        $this->columns = (new Lang())->getPublicColumns();
+        $modelColumns = new ModelColumns(new Lang());
+        $this->columns = $modelColumns->public();
     }
 
     public function type(): Type

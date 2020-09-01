@@ -17,6 +17,6 @@ class LoginTokenLogic
 
     public function getToken(): string
     {
-        return $this->user->createToken('Albertcito.com')->accessToken;
+        return $this->user->createToken(env('USER_TOKEN_NAME', 'Albertcito.com'))->accessToken;
     }
 }

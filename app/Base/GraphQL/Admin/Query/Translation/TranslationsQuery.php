@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace App\Base\GraphQL\Admin\Query\Translation;
 
 use App\Base\Globals\Langs;
-use App\Base\Logic\Search\Classes\TextSearch;
-use App\Base\Logic\Search\Classes\TranslationSearch;
-use App\Base\Logic\Search\Pagination\Items\PaginationLang;
-use App\Base\Logic\Search\Pagination\Items\PaginationOrderBy;
+use App\Base\Logic\Search\Classes\{
+    TextSearch,
+    TranslationSearch
+};
+use App\Base\Logic\Search\Pagination\Items\{
+    PaginationLang,
+    PaginationOrderBy
+};
 use App\Base\Logic\Search\Pagination\PaginationClassSearchLangTags;
 use App\Base\Model\Lang\Translation;
 use App\Base\Model\Lang\VText;
+use App\Base\Classes\ModelColumns;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -23,17 +28,18 @@ class TranslationsQuery extends Query
     protected array $orderByColumns;
 
     protected $attributes = [
-        'name'        => 'translationsQuery',
+        'name'        => 'translations',
         'description' => 'A query to get the Translations Type',
     ];
 
     public function __construct()
     {
-        $translation = new Translation();
-        $this->columns = $translation->getPublicColumns();
+        $translationModelColumns = new ModelColumns(new Translation());
+        $this->columns = $translationModelColumns->public();
+        $vTextModelColumns = new ModelColumns(new VText());
         $this->orderByColumns = array_merge(
             $this->columns,
-            (new VText())->getPublicColumns()
+            $vTextModelColumns->public()
         );
     }
 
