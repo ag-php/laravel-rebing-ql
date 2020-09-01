@@ -25,9 +25,9 @@ Base Admin
 - Go to [http://127.0.0.1:8000/graphiql](http://127.0.0.1:8000/graphiql)
 
 ###  Run it before to send a PR ###
-- `./vendor/bin/phpstan analyse`
-- `vendor/bin/phpunit`
+- `composer analyse`
 - `composer fix-style` (to check `composer check-style`)
+- `php artisan test`
 
 ###  To use the queries and mutations that request authentication:  ###
 

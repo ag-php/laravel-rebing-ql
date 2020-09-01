@@ -8,11 +8,6 @@ use App\Base\Enums\SchemaNames;
 class Tag extends Migration
 {
 
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('generic.tag', function (Blueprint $table) {
@@ -32,11 +27,6 @@ class Tag extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('generic.tag');

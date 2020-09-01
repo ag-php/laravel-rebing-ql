@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Base\GraphQL\Admin\Query;
+namespace Tests\Feature\Base\GraphQL\Admin\Mutation\Translation;
 
 use App\Base\Logic\Lang\Translation\TranslationSave;
 use App\Base\Model\Lang\Translation;
