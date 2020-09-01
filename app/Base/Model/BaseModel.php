@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
-
     /**
      * Save the user to created or update the row in the DB.
      *

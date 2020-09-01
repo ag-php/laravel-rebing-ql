@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModelColumns
 {
-
     private Model $model;
 
     public function __construct(Model $model)
@@ -26,8 +25,8 @@ class ModelColumns
     {
         $fillables = $this->model->getFillable();
         $fillables[] = $this->model->getKeyName();
-        $columns = preg_filter('/^/', $this->model->getTable(). '.' , $fillables);
-        $columns[] =$this->model->getTable(). '.' .$this->model->getKeyName();
+        $columns = preg_filter('/^/', $this->model->getTable().'.', $fillables);
+        $columns[] = $this->model->getTable().'.'.$this->model->getKeyName();
 
         return $columns;
     }
