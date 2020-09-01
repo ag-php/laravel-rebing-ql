@@ -1,26 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\Logic\Lang\Translation;
 
+use App\Base\Classes\Save\TransactionSave;
+use App\Base\GraphQL\Classes\MessageWrapper;
+use App\Base\Model\Lang\Translation;
+use App\Base\Rules\Blocked;
+use App\Base\Rules\NoHTMLTags;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
 
-use Illuminate\Validation\Rule;
-use App\Base\Classes\Save\TransactionSave;
-use App\Base\Model\Lang\Translation;
-use App\Base\GraphQL\Classes\MessageWrapper;
-use App\Base\Rules\{
-    NoHTMLTags,
-    Blocked
-};
-
 class TranslationMutation extends Mutation
 {
-
     private string $event;
 
-    public function __construct(string $event = "create")
+    public function __construct(string $event = 'create')
     {
         $this->event = $event;
     }
@@ -42,15 +39,15 @@ class TranslationMutation extends Mutation
                 'type' => Type::string(),
                 'rules' => [
                     new NoHTMLTags,
-                    ($this->event === "create") ? 'required' : '',
-                ]
+                    ($this->event === 'create') ? 'required' : '',
+                ],
             ],
             'isBlocked' => [
                 'type' => Type::boolean(),
             ],
         ];
 
-        if ($this->event === "update") {
+        if ($this->event === 'update') {
             $args['translationID'] = [
                 'type' => Type::int(),
                 'rules' => [
@@ -66,7 +63,6 @@ class TranslationMutation extends Mutation
         }
 
         return $args;
-
     }
 
     public function resolve(?Object $root, array $args): array
@@ -82,7 +78,7 @@ class TranslationMutation extends Mutation
                 $args
             )
         );
+
         return $save->saveMessage();
     }
-
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Base\Logic\Search\Interfaces;
+
 use Illuminate\Database\Eloquent\Builder;
 
 interface SearchByTranslation

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Base;
+namespace Tests\Feature\Base\GraphQL\Publics\Query;
 
 use Tests\TestCase;
 

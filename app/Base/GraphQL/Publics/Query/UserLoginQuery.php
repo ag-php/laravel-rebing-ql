@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Base\GraphQL\Publics\Query;
 
+use App\Base\Logic\User\Login\LoginApiLogic;
+use App\Base\Logic\User\Login\LoginUserLogic;
+use App\Base\Model\Security\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use App\Base\Model\Security\User;
-use App\Base\Logic\User\Login\{
-    LoginUserLogic,
-    LoginApiLogic
-};
 
 class UserLoginQuery extends Query
 {
@@ -55,6 +53,7 @@ class UserLoginQuery extends Query
                 $args['password']
             )
         );
+
         return $loginApiLogic->getUserWithToken();
     }
 }

@@ -9,7 +9,6 @@ use GraphQL\Type\Definition\Type;
 
 class MessageWrapper
 {
-
     public static function type(string $typeName, bool $list = false): Type
     {
         if ($list) {
@@ -26,5 +25,4 @@ class MessageWrapper
             WrapperType::class
         );
     }
-
 }

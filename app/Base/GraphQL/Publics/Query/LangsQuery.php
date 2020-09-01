@@ -10,8 +10,8 @@ use App\Base\Logic\Search\Pagination\PaginationClassSearch;
 use App\Base\Model\Lang\Lang;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Query;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Rebing\GraphQL\Support\Query;
 
 class LangsQuery extends Query
 {

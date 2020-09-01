@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Base\GraphQL\Config\{
-    Types,
-    PublicQueries,
-    AdminMutations,
-    AdminQueries,
-};
+use App\Base\GraphQL\Config\AdminMutations;
+use App\Base\GraphQL\Config\AdminQueries;
+use App\Base\GraphQL\Config\PublicQueries;
+use App\Base\GraphQL\Config\Types;
 
 return [
 

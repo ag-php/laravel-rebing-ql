@@ -9,8 +9,8 @@ class PublicQueries
     public static function queries(): array
     {
         return [
-          \App\Base\GraphQL\Publics\Query\UserLoginQuery::class,
-          \App\Base\GraphQL\Publics\Query\LangsQuery::class,
+            \App\Base\GraphQL\Publics\Query\UserLoginQuery::class,
+            \App\Base\GraphQL\Publics\Query\LangsQuery::class,
         ];
     }
 }

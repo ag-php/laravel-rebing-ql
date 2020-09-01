@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Tests\Util\UserUtil;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -29,10 +30,11 @@ abstract class TestCase extends BaseTestCase
             $user = UserUtil::actingAs();
         }
         $response = $this->actingAs($user)
-            ->json('post', $url, $params)
-            ->assertStatus(200);
+            ->json('post', $url, $params);
         try {
-            $response->assertJsonStructure($expected);
+            $response
+                ->assertStatus(200)
+                ->assertJsonStructure($expected);
         } catch (\Exception $ex) {
             $this->printDie($params, $expected, $ex, $response, $user->user_id);
         }

@@ -10,7 +10,6 @@ use GraphQL\Error\ClientAware;
 
 class MessageError extends \Exception implements ClientAware
 {
-
     public function __construct(string $message = null, int $code = 0)
     {
         if (! $message) {

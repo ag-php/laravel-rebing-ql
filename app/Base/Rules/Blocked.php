@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Base\Logic\OptionalParams\BlockedParam;
+use Illuminate\Contracts\Validation\Rule;
 
 class Blocked implements Rule
 {
@@ -27,7 +29,7 @@ class Blocked implements Rule
     {
         $variables = request()->get('variables');
         //If it a new element
-        if (!isset($variables[$this->id_key])) {
+        if (! isset($variables[$this->id_key])) {
             return true;
         }
 
@@ -49,7 +51,5 @@ class Blocked implements Rule
     public function message()
     {
         return trans('graphql.item_blocked');
-
     }
-
 }
