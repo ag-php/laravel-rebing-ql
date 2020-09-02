@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Base\Enums\SchemaNames;
-use App\Base\Logic\Translation\TranslationCreate;
+use App\Base\Model\Lang\Translation;
+use App\Base\Logic\Lang\Translation\TranslationSave;
 
 class UserStatus extends Migration
 {
@@ -43,73 +44,79 @@ class UserStatus extends Migration
         $active = 'active';
         $activeTranslations = [
             [
-                'lang_id' => 'EN',
+                'langID' => 'EN',
                 'text' => 'Active'
             ],
             [
-                'lang_id' => 'ES',
+                'langID' => 'ES',
                 'text' => 'Activado'
             ]
         ];
         $inactive = 'inactive';
         $inactiveTranslations = [
             [
-                'lang_id' => 'EN',
+                'langID' => 'EN',
                 'text' => 'Inactive'
             ],
             [
-                'lang_id' => 'ES',
+                'langID' => 'ES',
                 'text' => 'Desactivado'
             ]
         ];
         $blocked = 'blocked';
         $blockedTranslations = [
             [
-                'lang_id' => 'EN',
+                'langID' => 'EN',
                 'text' => 'Blocked'
             ],
             [
-                'lang_id' => 'ES',
+                'langID' => 'ES',
                 'text' => 'Bloqueado'
             ]
         ];
 
-        $activeTranslation = TranslationCreate::create(
+        $activeTranslation = new TranslationSave(
+            new Translation,
             $activeTranslations,
             [
                 'code' => $active,
-                'isBlocked' => true,
+                'isBlocked' => true
             ]
-        )->fresh();
+        );
+        $activeTranslation->save();
 
-        $inactiveTranslation = TranslationCreate::create(
+        $inactiveTranslation = new TranslationSave(
+            new Translation,
             $inactiveTranslations,
             [
                 'code' => $inactive,
-                'isBlocked' => true,
+                'isBlocked' => true
             ]
-        )->fresh();
+        );
+        $inactiveTranslation->save();
 
-        $blockedTranslation = TranslationCreate::create(
+        $blockedTranslation = new TranslationSave(
+            new Translation,
             $blockedTranslations,
             [
                 'code' => $blocked,
-                'isBlocked' => true,
+                'isBlocked' => true
             ]
-        )->fresh();
+        );
+        $blockedTranslation->save();
 
         DB::table('security.user_status')->insert([
             [
                 'user_status_id' => $active,
-                'status_id' => $activeTranslation->translation_id,
+                'status_id' => $activeTranslation->id(),
             ],
             [
                 'user_status_id' => $inactive,
-                'status_id' => $inactiveTranslation->translation_id,
+                'status_id' => $inactiveTranslation->id(),
             ],
             [
                 'user_status_id' => $blocked,
-                'status_id' => $blockedTranslation->translation_id,
+                'status_id' => $blockedTranslation->id(),
             ],
         ]);
 

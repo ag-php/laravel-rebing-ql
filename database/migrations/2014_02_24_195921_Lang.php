@@ -28,7 +28,7 @@ class Lang extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
 
-        DB::table($this->tableName)->insert([
+        DB::table('lang.lang')->insert([
             ['lang_id' => 'EN', 'name' => 'English', 'local_name' => 'English', 'active' => true],
             ['lang_id' => 'ES', 'name' => 'Spanish', 'local_name' => 'Español', 'active' => true],
         ]);
