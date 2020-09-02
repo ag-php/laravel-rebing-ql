@@ -168,7 +168,6 @@ return [
          * Package Service Providers...
          */
 
-        MattAllan\LaravelCodeStyle\ServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
         /*
