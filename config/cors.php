@@ -25,7 +25,7 @@ return [
         'OPTIONS',
     ],
 
-    'allowed_origins' => explode(',', env('CORS_ALLOW_ORIGIN', ['*'])),
+    'allowed_origins' => explode(',', env('CORS_ALLOW_ORIGIN', '*')),
 
     'allowed_origins_patterns' => [],
 
