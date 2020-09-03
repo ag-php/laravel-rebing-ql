@@ -17,15 +17,27 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['*'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => [
+        'GET',
+        'POST',
+        'OPTIONS',
+    ],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => explode(',', env('CORS_ALLOW_ORIGIN')),
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => [
+        'X-PINGOTHER',
+        'Origin',
+        'X-Requested-With',
+        'Content-Type',
+        'Accept',
+        'x-csrf-token',
+        'authorization',
+    ],
 
     'exposed_headers' => [],
 
