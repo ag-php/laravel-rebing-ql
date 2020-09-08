@@ -14,6 +14,10 @@ class AdminQueries
 
             \App\Base\GraphQL\Admin\Query\Tag\TagsQuery::class,
             \App\Base\GraphQL\Admin\Query\Tag\TagQuery::class,
+
+            \App\Base\GraphQL\Admin\Query\User\UsersQuery::class,
+            \App\Base\GraphQL\Admin\Query\User\UserQuery::class,
+            \App\Base\GraphQL\Admin\Query\User\LogoutQuery::class,
         ];
     }
 }
