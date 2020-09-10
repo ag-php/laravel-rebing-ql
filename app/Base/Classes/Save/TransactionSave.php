@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Base\Classes\Save;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class TransactionSave
@@ -29,7 +28,7 @@ class TransactionSave
 
         return [
             'data' => $this->data->data(),
-            'messages' => new Collection($this->data->messages()),
+            'messages' => $this->data->messages(),
         ];
     }
 }

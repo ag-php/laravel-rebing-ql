@@ -16,7 +16,6 @@ namespace App\Base\GraphQL\Classes;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type as GraphQLType;
-use Illuminate\Support\Collection;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
@@ -77,7 +76,7 @@ class WrapperType extends ObjectType
             'messages' => [
                 'type'        => GraphQLType::listOf(GraphQL::type('SimpleMessageType')),
                 'description' => 'List of messages',
-                'resolve'     => function ($data): Collection {
+                'resolve'     => function ($data): array {
                     return $data['messages'];
                 },
             ],

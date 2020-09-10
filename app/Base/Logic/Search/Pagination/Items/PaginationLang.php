@@ -13,7 +13,7 @@ class PaginationLang extends PaginationItem
         string $description = 'Lang for the title ID.'
     ) {
         parent::__construct(
-            'lang_id',
+            'langID',
             Type::string(),
             $description,
             $defaultValue,

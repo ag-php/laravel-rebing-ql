@@ -38,7 +38,7 @@ class TagSave implements IData
 
     public function data(): Tag
     {
-        return $this->tag;
+        return $this->tag->fresh();
     }
 
     public function save(): void
@@ -50,7 +50,7 @@ class TagSave implements IData
 
         // Update isBlocked optional argument
         if (isset($this->optionals['isBlocked'])) {
-            $this->translation->is_blocked = $this->optionals['isBlocked'];
+            $this->tag->is_blocked = $this->optionals['isBlocked'];
         }
         $this->tag->translation_id = $this->translationID;
         $this->tag->save();
