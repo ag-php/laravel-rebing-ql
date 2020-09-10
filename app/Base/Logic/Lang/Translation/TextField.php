@@ -28,14 +28,14 @@ class TextField
             'type' => $optional ? $type : Type::nonNull($type),
             'description' => 'Current text in the language selected.',
             'args' => [
-                'lang_id' => [
+                'langID' => [
                     'type' => Type::string(),
                     'defaultValue' => $defaultLang,
                 ],
             ],
             'resolve' => function ($root, $args) use ($id, $optional) {
-                if (! Lang::find($args['lang_id'])) {
-                    $error = 'The Lang "'.$args['lang_id'].'" is not available.';
+                if (! Lang::find($args['langID'])) {
+                    $error = 'The Lang "'.$args['langID'].'" is not available.';
                     throw new \Exception($error);
                 }
                 if ($optional && $root[$id] === null) {
@@ -43,7 +43,7 @@ class TextField
                 }
                 $translation = Translation::find($root[$id]);
 
-                return $translation->text($args['lang_id']);
+                return $translation->text($args['langID']);
             },
         ];
     }

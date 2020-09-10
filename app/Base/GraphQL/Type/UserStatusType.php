@@ -74,7 +74,7 @@ class UserStatusType extends GraphQLType
 
                     $translation = Translation::find($root->description_id);
 
-                    return $translation->text($args['lang_id']);
+                    return $translation->text($args['langID']);
                 },
             ],
             'createdAt' => [

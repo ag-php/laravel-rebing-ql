@@ -10,7 +10,6 @@ use App\Base\GraphQL\Classes\SimpleMessage;
 use App\Base\Model\Lang\Translation;
 use App\Base\Rules\Blocked;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Support\Collection;
 use Rebing\GraphQL\Support\Mutation;
 
 class TranslationDeleteMutation extends Mutation
@@ -54,7 +53,7 @@ class TranslationDeleteMutation extends Mutation
 
         return [
             'data' => $translation,
-            'messages' => new Collection([new SimpleMessage($msgTag, SimpleMessageEnum::SUCCESS())]),
+            'messages' => [new SimpleMessage($msgTag, SimpleMessageEnum::SUCCESS())],
         ];
     }
 }

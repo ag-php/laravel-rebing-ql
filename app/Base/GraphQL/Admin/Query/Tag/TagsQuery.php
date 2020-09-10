@@ -64,10 +64,10 @@ class TagsQuery extends Query
         $query = Tag::select($this->columns);
         $query->orderBy($args['orderBy'], $args['order']);
 
-        $translationSearch = new TranslationSearch('generic.tag.translation_id', $args['lang_id']);
+        $translationSearch = new TranslationSearch('generic.tag.translation_id', $args['langID']);
         $translationSearch->query($query);
 
-        if (strlen($args['search']) > 0) {
+        if (isset($args['search']) && strlen($args['search']) > 0) {
             $textSearch = new TextSearch($args['search'], 'vtext.text');
             $textSearch->query($query);
         }

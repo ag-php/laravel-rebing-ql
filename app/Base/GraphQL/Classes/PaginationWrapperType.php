@@ -80,7 +80,7 @@ class PaginationWrapperType extends ObjectType
             'messages'   => [
                 'type'        => GraphQLType::listOf(GraphQL::type('SimpleMessageType')),
                 'description' => 'List of messages',
-                'resolve'     => function ($data): Collection {
+                'resolve'     => function ($data): array {
                     return $data['messages'];
                 },
             ],

@@ -5,7 +5,6 @@ namespace App\Base\GraphQL\Admin\Query\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use Illuminate\Support\Collection;
 
 use App\Base\GraphQL\Classes\MessageWrapper;
 use App\Base\Model\Security\User;
@@ -48,7 +47,7 @@ class UserQuery extends Query
 
         return[
             'data' =>  $user,
-            'messages' => new Collection([]),
+            'messages' => [],
         ];
 
     }
