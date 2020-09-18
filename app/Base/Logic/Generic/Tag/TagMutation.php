@@ -63,6 +63,7 @@ class TagMutation extends Mutation
         $tag = (isset($args['tagID']))
             ? (Tag::where('tag_id', $args['tagID'])->first() ?? new Tag())
             : new Tag();
+
         return (
             new TransactionSave(
                 new TagSave(

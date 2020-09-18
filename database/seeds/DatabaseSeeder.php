@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Database\Seeder;
+declare(strict_types=1);
 
-use Seeds\Base\{
-    UserTableSeeder,
-    TranslationsTableSeeder,
-    TagsTableSeeder,
-};
+use Illuminate\Database\Seeder;
+use Seeds\Base\TagsTableSeeder;
+use Seeds\Base\TranslationsTableSeeder;
+use Seeds\Base\UserTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {

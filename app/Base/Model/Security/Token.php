@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Base\Model\Security;
 
-use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Base\Model\BaseModel;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Carbon;
 
 class Token extends BaseModel
 {
@@ -38,12 +37,12 @@ class Token extends BaseModel
      *
      * @return Token
      */
-    public static function add(string $type, Carbon $expireAt = null): Token
+    public static function add(string $type, Carbon $expireAt = null): self
     {
         $nowTimestamp = now()->timestamp;
         $token = bin2hex(random_bytes(30).$nowTimestamp);
 
-        return Token::create(
+        return self::create(
             [
                 'token'     => $token,
                 'type'      => $type,
@@ -63,9 +62,9 @@ class Token extends BaseModel
      *
      * @return Token
      */
-    public static function getToken(string $token, string $type): Token
+    public static function getToken(string $token, string $type): self
     {
-        $token = Token::where(
+        $token = self::where(
             [
                 'token' => $token,
                 'type'  => $type,
@@ -75,8 +74,8 @@ class Token extends BaseModel
             ->whereNull('used_at')
             ->first();
 
-        if (!$token) {
-            throw new \Exception("Token does not exist");
+        if (! $token) {
+            throw new \Exception('Token does not exist');
         }
 
         return $token;
@@ -100,5 +99,4 @@ class Token extends BaseModel
             'user_id'
         );
     }
-
 }

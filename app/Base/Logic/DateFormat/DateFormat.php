@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Base\Logic\DateFormat;
 
-use \Carbon\Carbon;
+use Carbon\Carbon;
 
 class DateFormat
 {

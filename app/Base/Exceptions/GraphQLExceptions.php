@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Base\Exceptions;
 
-use Illuminate\Database\QueryException;
-use App\Base\Exceptions\MessageError;
-use Rebing\GraphQL\Error\ValidationError;
 use App\Base\Util\StringBetween;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GraphQL\Error\Error;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
+use Rebing\GraphQL\Error\ValidationError;
 
 class GraphQLExceptions
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Base\Model\Lang;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Base\Model\BaseModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Translation extends BaseModel
@@ -21,10 +21,8 @@ class Translation extends BaseModel
     ];
 
     /**
-     *
-     *
      * @param array $langID
-     * @param boolean $active
+     * @param bool $active
      *
      * @return Builder
      */
@@ -52,9 +50,10 @@ class Translation extends BaseModel
     public function text(string $langID): Model
     {
         $text = $this->texts([$langID])->first();
-        if (!$text) {
-            throw new \Exception("Something went wrong with " . $langID);
+        if (! $text) {
+            throw new \Exception('Something went wrong with '.$langID);
         }
+
         return $text;
     }
 

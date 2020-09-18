@@ -1,21 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\GraphQL\Admin\Query\User;
 
+use App\Base\Classes\ModelColumns;
+use App\Base\Logic\Search\Classes\TextSearch;
+use App\Base\Logic\Search\Pagination\Items\PaginationOrderBy;
+use App\Base\Logic\Search\Pagination\PaginationClassSearch;
+use App\Base\Model\Security\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Query;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-
-use App\Base\Classes\ModelColumns;
-use App\Base\Model\Security\User;
-use App\Base\Logic\Search\Classes\TextSearch;
-use App\Base\Logic\Search\Pagination\PaginationClassSearch;
-use App\Base\Logic\Search\Pagination\Items\PaginationOrderBy;
+use Rebing\GraphQL\Support\Query;
 
 class UsersQuery extends Query
 {
-
     protected array $columns;
 
     protected $attributes = [
@@ -32,17 +32,17 @@ class UsersQuery extends Query
     public function type(): Type
     {
         return GraphQL::paginate('UserType');
-
     }
 
     public function args(): array
     {
-        $paginationClass =  new PaginationClassSearch(
+        $paginationClass = new PaginationClassSearch(
             new PaginationOrderBy(
                 'security.user.user_id',
                 $this->columns
             )
         );
+
         return $paginationClass->toArray();
     }
 
@@ -57,7 +57,5 @@ class UsersQuery extends Query
         }
 
         return $query->paginate($args['limit'], ['*'], 'page', $args['page']);
-
     }
-
 }

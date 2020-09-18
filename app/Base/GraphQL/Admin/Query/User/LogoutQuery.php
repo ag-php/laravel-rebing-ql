@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\GraphQL\Admin\Query\User;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use Illuminate\Support\Facades\Auth;
 
 class LogoutQuery extends Query
 {
-
     protected $attributes = [
         'name'        => 'logout',
         'description' => 'A query to revoke token',
@@ -37,5 +37,4 @@ class LogoutQuery extends Query
 
         return  ['message' => __('user.logout')];
     }
-
 }

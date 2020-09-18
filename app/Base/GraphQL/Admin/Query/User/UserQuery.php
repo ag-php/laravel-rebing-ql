@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Base\GraphQL\Admin\Query\User;
 
-use GraphQL;
+use App\Base\Exceptions\MessageError;
+use App\Base\GraphQL\Classes\MessageWrapper;
+use App\Base\Model\Security\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-use App\Base\GraphQL\Classes\MessageWrapper;
-use App\Base\Model\Security\User;
-use App\Base\Exceptions\MessageError;
-
 class UserQuery extends Query
 {
-
     protected $attributes = [
         'name'        => 'user',
         'description' => 'A query to return a user',
@@ -35,21 +34,18 @@ class UserQuery extends Query
                 ],
             ],
         ];
-
     }
 
     public function resolve(?Object $root, array $args): array
     {
         $user = User::find($args['userID']);
-        if (!$user) {
-            throw new MessageError("Not found", 404);
+        if (! $user) {
+            throw new MessageError('Not found', 404);
         }
 
         return[
             'data' =>  $user,
             'messages' => [],
         ];
-
     }
-
 }

@@ -6,9 +6,9 @@ declare(strict_types=1);
 
 namespace App\Base\Model\Security;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Base\Logic\Enum\TokenType;
 use App\Base\Model\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserToken extends BaseModel
 {
@@ -47,7 +47,7 @@ class UserToken extends BaseModel
     {
         // @phpstan-ignore-next-line
         $token = Token::add(TokenType::EMAIL_VERIFIED, now()->addHours(24));
-        UserToken::create(
+        self::create(
             [
                 'user_id'  => $user_id,
                 'token_id' => $token->token_id,
@@ -68,7 +68,7 @@ class UserToken extends BaseModel
     {
         // @phpstan-ignore-next-line
         $token = Token::add(TokenType::FORGOT_PASS, now()->addHours(24));
-        UserToken::create(
+        self::create(
             [
                 'user_id'  => $user_id,
                 'token_id' => $token->token_id,

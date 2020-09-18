@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * To encode data to send in the URL or JSON
- * php version 7.2.10
+ * php version 7.2.10.
  *
  * @category Translations
- * @package  Translations
  * @author   Albert <abarrientos@inspiracion.cl>
  * @license  no LICENSE
  * @link     http://www.inspiracion.cl
@@ -30,7 +31,7 @@ return [
     'updated_success' => 'The item :item was updated successfully',
     'item_blocked' => 'Sorry, the item you are trying to update or delete is blocked.',
     'blocked_no_right' => 'Sorry, you dont have the right to unblocked this item.',
-    'blocked_update' => "You updated a blocked learning object.",
-    'blocked_deleted' => "You deleted a blocked item.",
+    'blocked_update' => 'You updated a blocked learning object.',
+    'blocked_deleted' => 'You deleted a blocked item.',
     'C0002' => "The value doesn't exists. Detail: :detail",
 ];
