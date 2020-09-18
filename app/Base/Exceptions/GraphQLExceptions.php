@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PEAR.Commenting
-
 namespace App\Base\Exceptions;
 
+use Illuminate\Database\QueryException;
+use App\Base\Exceptions\MessageError;
+use Rebing\GraphQL\Error\ValidationError;
 use App\Base\Util\StringBetween;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GraphQL\Error\Error;
@@ -15,49 +16,51 @@ class GraphQLExceptions
 {
     public static function formatError(Error $error): array
     {
-        $previous = $error->getPrevious();
-        if (! $previous) {
+        if (! $error->getPrevious()) {
             return [
                 'message' => $error->getMessage(),
             ];
         }
 
-        $previousClass = get_class($previous);
-        switch ($previousClass) {
-        case 'Rebing\\GraphQL\\Error\\ValidationError':
-            return self::getValidation($error);
-        case 'Illuminate\Database\QueryException':
-            return self::getQueryException($error);
-        case 'App\\Base\\Exceptions\\MessageError':
-            return self::getMessageError($error);
-        default:
-            return self::getError($error);
+        $previousError = $error->getPrevious();
+        if ($previousError instanceof ValidationError) {
+            return self::getValidation($error, $previousError);
         }
+
+        if ($previousError instanceof QueryException) {
+            return self::getQueryException($error, $previousError);
+        }
+
+        if ($previousError instanceof MessageError) {
+            return self::getMessageError($error, $previousError);
+        }
+
+        // @phpstan-ignore-next-line
+        return self::getError($error, $previousError);
     }
 
-    private static function getValidation(Error $error): array
+    private static function getValidation(Error $error, ValidationError $validatorError): array
     {
         return [
             'message'    => $error->getMessage(),
-            // @phpstan-ignore-next-line
-            'validation' => $error->getPrevious()->getValidatorMessages(),
+            'validation' => $validatorError->getValidatorMessages(),
         ];
     }
 
-    private static function getMessageError(Error $e): array
+    private static function getMessageError(Error $e, MessageError $messageError): array
     {
         return [
-            'code'    => $e->getPrevious()->getCode(),
+            'code'    => $messageError->getCode(),
             'message' => $e->getMessage(),
             'type'    => 'messageError',
         ];
     }
 
-    private static function getQueryException(Error $e) : array
+    private static function getQueryException(Error $e, QueryException $queryException) : array
     {
         // FK constraint violation.
         if (
-            $e->getPrevious()->getCode() == 23503
+            $queryException->getCode() == 23503
             && strpos($e->getMessage(), 'still referenced from table') !== false
             && strpos($e->getMessage(), 'SQL: delete from') !== false
         ) {
@@ -68,7 +71,7 @@ class GraphQLExceptions
 
         // Duplicate key value violates unique constraint.
         if (
-             $e->getPrevious()->getCode() == 23505
+             $queryException->getCode() == 23505
              && strpos($e->getMessage(), 'already exists') !== false
             ) {
             $message = StringBetween::find($e->getMessage(), 'DETAIL:', '(SQL');
@@ -77,27 +80,29 @@ class GraphQLExceptions
         }
 
         //Trigger Errors
-        if ($e->getPrevious()->getCode() == 'TBLOP') {
+        if ($queryException->getCode() == 'TBLOP') {
             return ['message' => __('select_option.tblop')];
         }
-        if ($e->getPrevious()->getCode() == 'IGADE') {
+
+        if ($queryException->getCode() == 'IGADE') {
             return ['message' => __('select_option.igade')];
         }
+
         //Trigger Errors -> The value doesn't exists.
-        if ($e->getPrevious()->getCode() == 'C0002') {
+        if ($queryException->getCode() == 'C0002') {
             $message = StringBetween::find($e->getMessage(), 'ERROR:', 'CONTEXT');
             $message = stripslashes($message);
 
             return ['message' => __('graphql.C0002', ['detail' => $message])];
         }
 
-        return self::getError($e);
+        return self::getError($e, $queryException);
     }
 
-    private static function getError(Error $e) : array
+    private static function getError(Error $baseError, \Exception $error) : array
     {
         if (\App::environment() == 'production') {
-            Bugsnag::notifyException($e->getPrevious());
+            Bugsnag::notifyException($error);
 
             return [
                 'message' => __('graphql.error500'),
@@ -105,12 +110,12 @@ class GraphQLExceptions
         }
 
         return [
-            'code'    => $e->getPrevious()->getCode(),
-            'line'    => $e->getPrevious()->getLine(),
-            'file'    => $e->getPrevious()->getFile(),
-            'class'   => get_class($e->getPrevious()),
-            'message' => $e->getMessage(),
-            'trace'   => collect($e->getPrevious()->getTrace())->map(
+            'code'    => $error->getCode(),
+            'line'    => $error->getLine(),
+            'file'    => $error->getFile(),
+            'class'   => get_class($error),
+            'message' => $baseError->getMessage(),
+            'trace'   => collect($error->getTrace())->map(
                 function ($trace) {
                     return Arr::except($trace, ['args']);
                 }

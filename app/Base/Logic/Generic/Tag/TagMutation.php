@@ -60,10 +60,13 @@ class TagMutation extends Mutation
 
     public function resolve(?Object $root, array $args): array
     {
+        $tag = (isset($args['tagID']))
+            ? (Tag::where('tag_id', $args['tagID'])->first() ?? new Tag())
+            : new Tag();
         return (
             new TransactionSave(
                 new TagSave(
-                    isset($args['tagID']) ? Tag::find($args['tagID']) : new Tag(),
+                    $tag,
                     $args['translationID'],
                     $args
                 )

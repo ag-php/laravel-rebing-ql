@@ -41,9 +41,11 @@ class TextField
                 if ($optional && $root[$id] === null) {
                     return;
                 }
-                $translation = Translation::find($root[$id]);
+                $translation = Translation::where('translation_id', $root[$id])->first();
 
-                return $translation->text($args['langID']);
+                if ($translation) {
+                    return $translation->text($args['langID']);
+                }
             },
         ];
     }

@@ -38,7 +38,7 @@ class UserQuery extends Query
 
     }
 
-    public function resolve($root, $args)
+    public function resolve(?Object $root, array $args): array
     {
         $user = User::find($args['userID']);
         if (!$user) {

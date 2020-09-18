@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace App\Base\Model\Security;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Base\Logic\Enum\TokenType;
 use App\Base\Model\BaseModel;
 
@@ -28,9 +29,9 @@ class UserToken extends BaseModel
     /**
      * Return the tokens to belong to this user.
      *
-     * @return  queryBuilder
+     * @return  HasMany
      */
-    public function tokens()
+    public function tokens(): HasMany
     {
         return $this->hasMany('App\Base\Model\Security\Token', 'token_id');
     }
@@ -44,8 +45,9 @@ class UserToken extends BaseModel
      */
     public static function addValidEmail($user_id) : string
     {
+        // @phpstan-ignore-next-line
         $token = Token::add(TokenType::EMAIL_VERIFIED, now()->addHours(24));
-        self::create(
+        UserToken::create(
             [
                 'user_id'  => $user_id,
                 'token_id' => $token->token_id,
@@ -64,8 +66,9 @@ class UserToken extends BaseModel
      */
     public static function addResetPass($user_id) : string
     {
+        // @phpstan-ignore-next-line
         $token = Token::add(TokenType::FORGOT_PASS, now()->addHours(24));
-        self::create(
+        UserToken::create(
             [
                 'user_id'  => $user_id,
                 'token_id' => $token->token_id,

@@ -1,21 +1,22 @@
 <?php
 
 declare(strict_types=1);
-// phpcs:disable PEAR.Commenting
 
 namespace App\Base\Logic\DateFormat;
 
+use \Carbon\Carbon;
+
 class DateFormat
 {
-    private $date;
+    private Carbon $date;
 
-    private $fullTime = 'M d, Y h:m A';
+    private string $fullTime = 'M d, Y h:m A';
 
-    private $day = 'M d, Y';
+    private string $day = 'M d, Y';
 
-    private $hour = 'hh:mm A';
+    private string $hour = 'hh:mm A';
 
-    public function __construct(\Carbon\Carbon $date)
+    public function __construct(Carbon $date)
     {
         $this->date = $date;
     }

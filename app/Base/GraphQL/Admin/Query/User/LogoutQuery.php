@@ -25,9 +25,16 @@ class LogoutQuery extends Query
         return [];
     }
 
-    public function resolve($root, $args)
+    public function resolve(?Object $root, array $args): array
     {
-        \Auth::User()->token()->revoke();
+        $user = \Auth::User();
+        if ($user) {
+            $token = $user->token();
+            if ($token) {
+                $token->revoke();
+            }
+        }
+
         return  ['message' => __('user.logout')];
     }
 

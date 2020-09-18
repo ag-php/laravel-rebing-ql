@@ -2,29 +2,12 @@
 
 declare(strict_types=1);
 
-/**
- * Undocumented class
- * php version 7.2.10.
- *
- * @category Model
- * @author   Albert <me@albertcito.com>
- * @license  no LICENSE
- * @link     https://albertcito.com
- */
-
 namespace App\Base\Model\Lang;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Base\Model\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Undocumented class.
- *
- * @category Model
- * @author   Albert <me@albertcito.com>
- * @license  no LICENSE
- * @link     https://albertcito.com
- */
 class Translation extends BaseModel
 {
     protected $table = 'lang.translation';
@@ -38,17 +21,18 @@ class Translation extends BaseModel
     ];
 
     /**
-     * Undocumented function.
      *
-     * @param array $lang_id Undocumented
      *
-     * @return void
+     * @param array $langID
+     * @param boolean $active
+     *
+     * @return Builder
      */
-    public function texts($lang_id = [], bool $active = null)
+    public function texts($langID = [], bool $active = null): Builder
     {
         $query = VText::where('vtext.translation_id', $this->translation_id);
-        if (count($lang_id)) {
-            $query->whereIn('vtext.lang_id', $lang_id);
+        if (count($langID)) {
+            $query->whereIn('vtext.lang_id', $langID);
         }
         if ($active !== null) {
             $query->where('vtext.active', $active);
@@ -57,21 +41,20 @@ class Translation extends BaseModel
         return $query;
     }
 
-    //end texts()
-
     /**
      * Return the translation in a language selected,
      * or in other language if that does not exist.
      *
-     * @param string $lang_id the language id form the lang.lang table
+     * @param string $langID the language id form the lang.lang table
      *
-     * @return Translation
+     * @return Model
      */
-    public function text(string $lang_id) : VText
+    public function text(string $langID): Model
     {
-        $query = $this->texts([$lang_id]);
-        $text = $query->first();
-
+        $text = $this->texts([$langID])->first();
+        if (!$text) {
+            throw new \Exception("Something went wrong with " . $langID);
+        }
         return $text;
     }
 
@@ -81,10 +64,13 @@ class Translation extends BaseModel
      * @param array $translationsID translation to return
      * @param array $langID         it's optional. Empty means all the languages.
      *
-     * @return array
+     * @return Builder type VText
      */
-    public static function textsByID(array $translationsID, array $langID = [], bool $active = null)
-    {
+    public static function textsByID(
+        array $translationsID,
+        array $langID = [],
+        bool $active = null
+    ): Builder {
         $query = VText::whereIn('vtext.translation_id', $translationsID);
         if (count($langID)) {
             $query->whereIn('vtext.lang_id', $langID);
@@ -99,12 +85,12 @@ class Translation extends BaseModel
     /**
      * To return an array like:  ['EN': 'hello', 'ES': 'Hola'].
      *
-     * @param array $translationsID translation to return
-     * @param array $langID         it's optional. Empty means all the languages.
+     * @param array $translationsID
+     * @param array $translations
      *
      * @return array
      */
-    public static function dictionary(array $translationsID, $translations)
+    public static function dictionary(array $translationsID, $translations): array
     {
         $dictionary = [];
         foreach ($translationsID as $translationID) {

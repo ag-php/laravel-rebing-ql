@@ -5,6 +5,7 @@ namespace App\Base\GraphQL\Admin\Query\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 use App\Base\Classes\ModelColumns;
 use App\Base\Model\Security\User;
@@ -15,7 +16,7 @@ use App\Base\Logic\Search\Pagination\Items\PaginationOrderBy;
 class UsersQuery extends Query
 {
 
-    protected $columns;
+    protected array $columns;
 
     protected $attributes = [
         'name'        => 'users',
@@ -45,7 +46,7 @@ class UsersQuery extends Query
         return $paginationClass->toArray();
     }
 
-    public function resolve($root, $args)
+    public function resolve(?Object $root, array $args): LengthAwarePaginator
     {
         $query = User::select($this->columns);
         $query->orderBy($args['orderBy'], $args['order']);

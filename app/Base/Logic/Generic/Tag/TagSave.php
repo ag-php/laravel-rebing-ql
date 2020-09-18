@@ -38,7 +38,8 @@ class TagSave implements IData
 
     public function data(): Tag
     {
-        return $this->tag->fresh();
+        $this->tag->fresh();
+        return $this->tag;
     }
 
     public function save(): void

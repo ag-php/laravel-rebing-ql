@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PEAR.Commenting.FileComment.Missing
-
 namespace App\Base\GraphQL\Type;
 
 use App\Base\Globals\Langs;
@@ -20,7 +18,6 @@ class UserStatusType extends GraphQLType
         'description' => 'A type for User Status',
     ];
 
-    // phpcs:disable PEAR.Commenting.FunctionComment.Missing
     public function fields() : array
     {
         $defaultLang = Langs::getDefault();
@@ -47,9 +44,10 @@ class UserStatusType extends GraphQLType
                     ],
                 ],
                 'resolve'     => function ($root, $args) {
-                    $translation = Translation::find($root->status_id);
-
-                    return $translation->text($args['langID']);
+                    $translation = Translation::where('translation_id', $root->status_id)->first();
+                    if ($translation) {
+                        return $translation->text($args['langID']);
+                    }
                 },
             ],
             'descriptionID' => [
@@ -72,9 +70,10 @@ class UserStatusType extends GraphQLType
                         return;
                     }
 
-                    $translation = Translation::find($root->description_id);
-
-                    return $translation->text($args['langID']);
+                    $translation = Translation::where('translation_id', $root->description_id)->first();
+                    if ($translation) {
+                        return $translation->text($args['langID']);
+                    }
                 },
             ],
             'createdAt' => [

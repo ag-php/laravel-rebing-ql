@@ -2,30 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * Undocumented class
- * php version 7.2.10.
- *
- * @category Model
- * @author   Albert <me@albertcito.com>
- * @license  no LICENSE
- * @link     https://albertcito.com
- */
-
 namespace App\Base\Model\Security;
 
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Base\Model\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Undocumented class
- * php version 7.2.10.
- *
- * @category Model
- * @author   Albert <me@albertcito.com>
- * @license  no LICENSE
- * @link     https://albertcito.com
- */
 class Token extends BaseModel
 {
     protected $table = 'security.token';
@@ -51,22 +34,22 @@ class Token extends BaseModel
      * Undocumented function.
      *
      * @param string $type      app/Logic/Enum/TokenType.php
-     * @param string $expire_at Undocumented
+     * @param Carbon $expireAt Undocumented
      *
      * @return Token
      */
-    public static function add(string $type, string $expire_at = ''): self
+    public static function add(string $type, Carbon $expireAt = null): Token
     {
         $nowTimestamp = now()->timestamp;
         $token = bin2hex(random_bytes(30).$nowTimestamp);
 
-        return self::create(
+        return Token::create(
             [
                 'token'     => $token,
                 'type'      => $type,
-                'expire_at' => $expire_at,
+                'expire_at' => $expireAt,
             ]
-        )->fresh();
+        );
     }
 
     //end add()
@@ -80,9 +63,9 @@ class Token extends BaseModel
      *
      * @return Token
      */
-    public static function getToken(string $token, string $type): self
+    public static function getToken(string $token, string $type): Token
     {
-        $token = self::where(
+        $token = Token::where(
             [
                 'token' => $token,
                 'type'  => $type,
@@ -92,6 +75,10 @@ class Token extends BaseModel
             ->whereNull('used_at')
             ->first();
 
+        if (!$token) {
+            throw new \Exception("Token does not exist");
+        }
+
         return $token;
     }
 
@@ -100,9 +87,9 @@ class Token extends BaseModel
     /**
      * Get the user tokens.
      *
-     * @return sqlbuilder
+     * @return HasManyThrough
      */
-    public function users()
+    public function users(): HasManyThrough
     {
         return $this->hasManyThrough(
             'App\Base\Model\Security\User',
@@ -114,5 +101,4 @@ class Token extends BaseModel
         );
     }
 
-    //end users()
-}//end class
+}

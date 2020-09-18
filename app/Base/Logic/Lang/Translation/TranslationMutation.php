@@ -68,7 +68,7 @@ class TranslationMutation extends Mutation
     public function resolve(?Object $root, array $args): array
     {
         $translation = isset($args['translationID'])
-            ? Translation::find($args['translationID'])
+            ? (Translation::where('translationID', $args['translationID'])->first() ?? new Translation())
             : new Translation();
 
         $save = new TransactionSave(
