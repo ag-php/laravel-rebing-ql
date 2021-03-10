@@ -1,3 +1,9 @@
+Tutorial
+=======================
+
+[Run private queries with Laravel + GraphiQL](https://albertcito.com/blog/run-private-queries-with-laravel-graphiql/)
+
+
 Base Admin
 =======================
 
